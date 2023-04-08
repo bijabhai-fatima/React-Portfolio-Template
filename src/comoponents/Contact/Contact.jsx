@@ -5,6 +5,7 @@ import { RiMessengerLine } from 'react-icons/ri'
 import { BsWhatsapp } from 'react-icons/bs'
 import { useRef } from 'react';
 import emailjs from 'emailjs-com';
+import values from '../../assets/values.json';
 
 
 const Contact = () => {
@@ -13,14 +14,16 @@ const Contact = () => {
 
     const sendEmail = (e) => {
         e.preventDefault();
-
-        emailjs.sendForm('service_vkyxlxe', 'template_rlc3xpb', form.current, '0A3Dtlu8DRNaCmHvB')
+        emailjs.sendForm()
+        emailjs.sendForm(values.serviceName, values.templateId, form.current, values.userId)
             .then((result) => {
                 console.log(result.text);
             }, (error) => {
                 console.log(error.text);
             });
     };
+    const mailId = values.emailAddress;
+    const temp = 'mailto:' + mailId;
 
     return (
         <section id='Contact'>
@@ -33,8 +36,8 @@ const Contact = () => {
                     <article className="contact__option">
                         <MdAttachEmail className='contact__option-icon' />
                         <h4>Email</h4>
-                        <h5>youremial@gmail.com</h5>
-                        <a href='mailto:youremial@gmail.com' target='_blank'>Send a message</a>
+                        <h5>{mailId}</h5> 
+                        <a href={temp} target='_blank'>Send a message</a>
                     </article>
 
                     <article className="contact__option">
